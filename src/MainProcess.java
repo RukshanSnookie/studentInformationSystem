@@ -9,6 +9,12 @@ public class MainProcess {
 	public static void main(String[] args) {
 		//This is the Main Menu/ landing page of the program
 		
+		displayHome();
+		
+		scan.close(); //closing the scanner , outside the loop
+	}
+
+	public static void displayHome() {
 		System.out.println("\nWelcome To The LearnCode SIS!");
 		while(elementPresent) {
 			try {
@@ -24,7 +30,13 @@ public class MainProcess {
 				
 				switch(menuOption) {
 				case 1:
-					System.out.println("\nNavigating to Student Management Page");
+					System.out.println("");
+					System.out.println("");
+					System.out.println("\n#############################################");
+					System.out.println("\n############# STUDENT MANAGEMENT #############");
+					System.out.println("\n#############################################");
+					StudentManagement std = new StudentManagement();
+					std.studentMenu();
 					break;
 				case 2:
 					System.out.println("\nNavigating to Course Management Page");
@@ -40,7 +52,7 @@ public class MainProcess {
 					break;
 				default:
 					System.out.println("\nThe Number You Entered is Invalid!!");
-					System.out.println("Please Check YOur Input Again!!");
+					System.out.println("\nPlease Check YOur Input Again!!");
 					continue;
 				}
 				scan.nextLine(); // consume the next input character
@@ -52,8 +64,5 @@ public class MainProcess {
 				continue;
 			}
 		}
-		
-		scan.close(); //closing the scanner , outside the loop
 	}
-
 }
