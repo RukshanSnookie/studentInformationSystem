@@ -22,4 +22,12 @@ public class StudentData {
 		return studentContact;
 	}
 	
+	//Setters
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+	public void setStudentContact(int studentContact) {
+		this.studentContact = studentContact;
+	}
+	
 }
