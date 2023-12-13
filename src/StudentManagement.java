@@ -126,7 +126,7 @@ public class StudentManagement extends Actions{
 	@Override
 	void view() {
 		for(StudentData  students : studentsList) {
-			System.out.println(students.getStudentId() + " " + students.getStudentName()+ " " + students.getStudentContact());
+			System.out.println(students.getStudentId() + " - " + students.getStudentName()+ " - " + students.getStudentContact());
 		}
 		backToMenu();
 		
@@ -169,10 +169,6 @@ public class StudentManagement extends Actions{
 					
 					idFound = true;
 					break; //stop the loop
-				}
-				else {
-					System.out.println("\nSorry, you entered invalid input");
-					backToMenu();
 				}
 			}
 			

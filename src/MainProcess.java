@@ -39,7 +39,13 @@ public class MainProcess {
 					std.studentMenu();
 					break;
 				case 2:
-					System.out.println("\nNavigating to Course Management Page");
+					System.out.println("");
+					System.out.println("");
+					System.out.println("\n#############################################");
+					System.out.println("\n############# COURSE MANAGEMENT #############");
+					System.out.println("\n#############################################");
+					CourseManagement crs = new CourseManagement();
+					crs.courseMenu();
 					break;
 				case 3:
 					System.out.println("\nNavigating to Enrollment Page");
