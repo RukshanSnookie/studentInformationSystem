@@ -48,8 +48,18 @@ public class MainProcess {
 					crs.courseMenu();
 					break;
 				case 3:
-					System.out.println("\nNavigating to Enrollment Page");
-					break;
+					System.out.println("");
+                    System.out.println("");
+                    System.out.println("\n#############################################");
+                    System.out.println("\n############# ENROLLMENT #############");
+                    System.out.println("\n#############################################");
+                    // Assuming you have created instances of StudentManagement and CourseManagement
+                    StudentManagement studentManagement = new StudentManagement();
+                    CourseManagement courseManagement = new CourseManagement();
+
+                    // Display enrollment menu
+                    StudentEnrollment.enrollmentMenu(studentManagement.getStudentsList(), courseManagement.getCoursesList());
+                    break;
 				case 4:
 					System.out.println("\nNavigating to Reports Page");
 					break;

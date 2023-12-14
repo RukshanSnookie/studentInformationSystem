@@ -278,6 +278,11 @@ public class StudentManagement extends Actions{
 		}	
 		return false; // No duplicate ID found
 	}
+	
+	public List<StudentData> getStudentsList() {
+		return studentsList;
+	}
+	
 }
 
 

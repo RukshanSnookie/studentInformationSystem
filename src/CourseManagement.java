@@ -273,5 +273,9 @@ public class CourseManagement extends Actions{
 			}		
 		
 	}
+	
+	public List<CourseData> getCoursesList() {
+		return coursesList;
+	}
 
 }
