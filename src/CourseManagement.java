@@ -274,7 +274,7 @@ public class CourseManagement extends Actions{
 		
 	}
 	
-	public List<CourseData> getCoursesList() {
+	public static List<CourseData> getCoursesList() {
 		return coursesList;
 	}
 

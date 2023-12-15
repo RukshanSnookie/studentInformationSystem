@@ -32,7 +32,7 @@ public class StudentEnrollment {
 					enrollStudentsToCourse(studentsList, coursesList);// passing lists as arguments
 					break;
 				case VIEW_COURSE_STUDENTS:
-					System.out.println("\nview course with students");
+					viewCourseStudents();
 					break;
 				case VIEW_STUDENT_COURSES:
 					System.out.println("\nview students with courses");
@@ -88,11 +88,6 @@ public class StudentEnrollment {
 							if(courses.getCourseCode().equalsIgnoreCase(courseRes)) {
 								add(students,courses); // calling the add method and adding new enrollment to the list
 								System.out.println("\nNew Enrollment Completed!!");
-								
-								//testing purpose
-								for(EnrollmentData e : enrollmentList) {
-									System.out.println(e.getStudentInfo() + "-" + e.getCourseInfo());
-								}
 							}
 							else {
 								System.out.println("\nPlease check the Student ID again!!");
@@ -106,9 +101,6 @@ public class StudentEnrollment {
 						break;
 					}
 				}
-				
-				
-				
 				
 			}	
 			
@@ -124,6 +116,31 @@ public class StudentEnrollment {
 	private static void add(StudentData studentInfo, CourseData courseInfo) {	
 		EnrollmentData enrolledStud = new EnrollmentData(studentInfo, courseInfo);
 		enrollmentList.add(enrolledStud);
+	}
+	
+	//Displaying a course and list of students enrolled to the course
+	public static void viewCourseStudents() {
+		try {
+			if(CourseManagement.getCoursesList().isEmpty()) { //if list is empty, display null message
+				System.out.println("\nThere are no courses to display!!");
+				backToMenu();
+			}
+			else {
+				System.out.println("\nSelet a course from the list.(Course Code:)");
+				for(CourseData courses : CourseManagement.getCoursesList()) {
+					System.out.println(courses.getCourseCode()+ " - " + courses.getCourseName());
+					String courseRes = scan.nextLine(); // taking course code as input
+					if(courses.getCourseCode().equalsIgnoreCase(courseRes)) {
+						//perfome the rest,, iterate through enrollment list and find students who enrolled in this course code
+					}
+				}
+			}
+		}
+		catch(Exception e) {
+			System.out.println("\nError Displaying Courses.");
+			backToMenu();
+		}
+		
 	}
 	
 	
