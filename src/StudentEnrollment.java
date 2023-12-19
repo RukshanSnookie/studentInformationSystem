@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,7 +36,7 @@ public class StudentEnrollment {
 					viewCourseStudents();
 					break;
 				case VIEW_STUDENT_COURSES:
-					System.out.println("\nview students with courses");
+					viewStudentCourse();
 					break;
 				case BACK_TO_HOME_SE:
 					backToHome();
@@ -81,24 +82,20 @@ public class StudentEnrollment {
 						System.out.println("\nAvailable Courses");
 						for(CourseData courses : coursesList) {
 							System.out.println(courses.getCourseCode()+ " - " + courses.getCourseName() + " - " + courses.getCourseCredit());
-							System.out.println("\nEnter the Course Code : ");
-							String courseRes = scan.nextLine();
-							
+						}
+						System.out.println("\nEnter the Course Code : ");
+						String courseRes = scan.nextLine();
+						
+						
+						for(CourseData courses : coursesList) {
 							//checking if the entered course code is in the list
 							if(courses.getCourseCode().equalsIgnoreCase(courseRes)) {
 								add(students,courses); // calling the add method and adding new enrollment to the list
 								System.out.println("\nNew Enrollment Completed!!");
+								backToMenu();
 							}
-							else {
-								System.out.println("\nPlease check the Student ID again!!");
-								break;
-							}
-						
 						}
-					}
-					else {
-						System.out.println("\nPlease check the Student ID again!!");
-						break;
+						
 					}
 				}
 				
@@ -126,14 +123,27 @@ public class StudentEnrollment {
 				backToMenu();
 			}
 			else {
-				System.out.println("\nSelet a course from the list.(Course Code:)");
+				//print out course list
 				for(CourseData courses : CourseManagement.getCoursesList()) {
 					System.out.println(courses.getCourseCode()+ " - " + courses.getCourseName());
-					String courseRes = scan.nextLine(); // taking course code as input
-					if(courses.getCourseCode().equalsIgnoreCase(courseRes)) {
-						//perfome the rest,, iterate through enrollment list and find students who enrolled in this course code
+				}
+				
+				System.out.println("\nSelet a course from the list.(Course code:)");
+				String courseRes = scan.next(); // taking course code as input
+				
+				boolean found = false;
+				
+				System.out.println("\nStudents Enrolled in the course : ");
+				for(EnrollmentData enrolledStud : enrollmentList) {
+					if(String.valueOf(enrolledStud.getCourseCode()).equals(courseRes)) { // check if the user input code matches the exists code
+						found = true;
+	                    System.out.println(enrolledStud.getStudentInfo());
 					}
 				}
+				if (!found) {
+	                System.out.println("\nNo students enrolled in the selected course.");
+	            }
+				
 			}
 		}
 		catch(Exception e) {
@@ -143,6 +153,46 @@ public class StudentEnrollment {
 		
 	}
 	
+	
+	
+	//Displaying a student and list of courses he enrolled
+		public static void viewStudentCourse() {
+			try {
+				if(StudentManagement.getStudentsList().isEmpty()) { //if list is empty, display null message
+					System.out.println("\nThere are no students to display!!");
+					backToMenu();
+				}
+				else {
+					//print out students list
+					for(StudentData students : StudentManagement.getStudentsList()) {
+						System.out.println(students.getStudentId()+ " - " + students.getStudentName());
+					}
+					
+					System.out.println("\nSelet a student from the list.(Student ID :)");
+					int studId = scan.nextInt(); // taking course code as input
+					scan.nextLine();
+					
+					boolean found = false;
+					
+					System.out.println("\nThe Student Enrolled in : ");
+					for(EnrollmentData enrolledCourse : enrollmentList) {
+						if(enrolledCourse.getStudentId() == (studId)) { // check if the user input id matches the exists id
+							found = true;
+		                    System.out.println(enrolledCourse.getCourseInfo());
+						}
+					}
+					if (!found) {
+		                System.out.println("\nThe Student still not enrolled in any course.");
+		            }
+					
+				}
+			}
+			catch(Exception e) {
+				System.out.println("\nError Displaying Students.");
+				backToMenu();
+			}
+			
+		}
 	
 	public static void backToHome() {
 		boolean goBack = true;

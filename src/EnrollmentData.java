@@ -13,12 +13,15 @@ public class EnrollmentData {
 	
 	//getters
 	public String getStudentInfo() {
-		return "\n Name : " + studentInfo.getStudentName();
+		return studentInfo.getStudentName();
 	}
 	public String getCourseInfo() {
-		return "\n Name : " + courseInfo.getCourseName();
+		return courseInfo.getCourseName();
 	}
-	
-	
-	
+	public int getStudentId() {
+		return studentInfo.getStudentId();
+	}
+	public String getCourseCode() {
+		return courseInfo.getCourseCode();
+	}
 }
