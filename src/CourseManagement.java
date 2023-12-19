@@ -1,3 +1,6 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -11,13 +14,16 @@ public class CourseManagement extends Actions{
 	private static final int UPDATE_COURSE = 3;
 	private static final int DELETE_COURSE = 4;
 	private static final int BACK_TO_HOME = 5;
+	private static final String COURSE_FILE = "courses.ser";
 	private static Scanner scan = new Scanner(System.in);
 	private static boolean isCourseManageMenuOpen = true;
 	private static List<CourseData> coursesList = new ArrayList<>();
 	private static boolean codeFound = false;
 	
-	
-	
+	//loading courses from file
+	static {
+		loadCourses();
+	}
 	// Add student method
 	public void courseMenu() {
 		
@@ -30,7 +36,7 @@ public class CourseManagement extends Actions{
 				System.out.println("\n5: Back TO Home");
 				System.out.println("");
 				System.out.println("\n#############################################");
-				System.out.println("\nWhich action you want to perfome? (1,2,3,4)");
+				System.out.println("\nWhich action you want to perfome? (1,2,3,4,5)");
 				
 				int menuAction ;
 				
@@ -41,7 +47,7 @@ public class CourseManagement extends Actions{
 						break; // exit the loop if input is valid
 					}
 					catch(InputMismatchException e) {
-						System.out.println("\nError!!! Please ENter a Valid Input : ");
+						System.out.println("\nError!!! Please Enter a Valid Input : ");
 						scan.nextLine();  // consume the invalid input
 					}
 				}
@@ -276,6 +282,22 @@ public class CourseManagement extends Actions{
 	
 	public static List<CourseData> getCoursesList() {
 		return coursesList;
+	}
+	
+	private static void loadCourses() {
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(COURSE_FILE))){
+			@SuppressWarnings("unchecked")
+			List<CourseData> loadedList = (List<CourseData>) ois.readObject();
+			coursesList.addAll(loadedList);
+	        System.out.println("Courses loaded successfully!");
+		}
+		catch(FileNotFoundException e) {
+	        System.out.println("No file found. Starting with an empty course list.");
+		}
+		catch(Exception e) {
+	        System.out.println("Error loading courses: " + e.getMessage());
+		}
+		
 	}
 
 }

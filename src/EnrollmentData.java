@@ -1,6 +1,8 @@
+import java.io.Serializable;
 
-public class EnrollmentData {
+public class EnrollmentData implements Serializable{
 
+	
 	private StudentData studentInfo ;
 	private CourseData courseInfo;
 	

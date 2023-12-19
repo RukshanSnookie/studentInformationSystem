@@ -1,3 +1,6 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Iterator;
@@ -11,13 +14,16 @@ public class StudentManagement extends Actions{
 	private static final int UPDATE_STUDENT = 3;
 	private static final int DELETE_STUDENT = 4;
 	private static final int BACK_TO_HOME = 5;
+	private static final String STUDENT_FILE = "students.ser";
 	private static Scanner scan = new Scanner(System.in);
 	private static boolean isStudManageMenuOpen = true;
 	private static List<StudentData> studentsList = new ArrayList<>();
 	private static boolean idFound = false;
 	
-	
-	
+	//load student data from file
+	static {
+		loadStudents();
+	}
 	// Add student method
 	public void studentMenu() {
 		
@@ -281,6 +287,22 @@ public class StudentManagement extends Actions{
 	
 	public static List<StudentData> getStudentsList() {
 		return studentsList;
+	}
+	
+	private static void loadStudents() {
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(STUDENT_FILE))){
+			@SuppressWarnings("unchecked")
+			List<StudentData> loadedList = (List<StudentData>) ois.readObject();
+			studentsList.addAll(loadedList);
+	        System.out.println("Students loaded successfully!");
+		}
+		catch(FileNotFoundException e) {
+	        System.out.println("No file found. Starting with an empty student list.");
+		}
+		catch(Exception e) {
+	        System.out.println("Error loading students: " + e.getMessage());
+		}
+		
 	}
 	
 }

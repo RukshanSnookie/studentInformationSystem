@@ -1,6 +1,8 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +15,13 @@ public class StudentEnrollment {
 	public static final int VIEW_COURSE_STUDENTS = 2;
 	public static final int VIEW_STUDENT_COURSES = 3;
 	public static final int BACK_TO_HOME_SE = 4;
+	private static final String ENROLLMENT_FILE = "enrollments.ser";
+
 	
+	//load enrollments from file
+	static {
+		loadEnrollments();
+	}
 	
 	public static void enrollmentMenu(List<StudentData> studentsList, List<CourseData> coursesList) {
 		
@@ -228,6 +236,26 @@ public class StudentEnrollment {
 			else {
 				System.out.println("\nSomething Wrong!!");
 			}		
+		
+	}
+	
+	public static List<EnrollmentData> getEnrollmentList(){
+		return enrollmentList;
+	} 
+	
+	private static void loadEnrollments() {
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ENROLLMENT_FILE))){
+			@SuppressWarnings("unchecked")
+			List<EnrollmentData> loadedList = (List<EnrollmentData>) ois.readObject();
+			enrollmentList.addAll(loadedList);
+	        System.out.println("Courses loaded successfully!");
+		}
+		catch(FileNotFoundException e) {
+	        System.out.println("No file found. Starting with an empty enrollments list.");
+		}
+		catch(Exception e) {
+	        System.out.println("Error loading enrollments: " + e.getMessage());
+		}
 		
 	}
 	

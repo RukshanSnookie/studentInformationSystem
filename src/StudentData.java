@@ -1,5 +1,10 @@
+import java.io.Serializable;
 
-public class StudentData {
+public class StudentData implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int studentId;
 	private String studentName;
 	private int studentContact;

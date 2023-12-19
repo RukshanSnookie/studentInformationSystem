@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class CourseData {
+public class CourseData implements Serializable{
+	
 	private String courseCode;
 	private String courseName;
 	private int courseCredit;
